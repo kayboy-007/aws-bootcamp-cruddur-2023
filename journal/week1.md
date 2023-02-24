@@ -118,7 +118,7 @@ networks:
 
 ### Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
 I installed Docker Desktop on my windows machine by following the instructions on [Docker Desktop Installation Guide](https://docs.docker.com/desktop/install/windows-install/).
-I Linked my Dockerhub repository by clicking the Dockerhub button on the page. After supplying my credentials, I was able to pull the images in my repository to my laptop.
+I Linked my Dockerhub registry by clicking the Dockerhub button on the page. After supplying my credentials, I was able to pull the images in my repository to my laptop.
 
 ![See screenshot of docker images in my DockerHub repository](assets/Week1/Cruddur%20images%20in%20Docker%20Desktop.jpg "Cruddur Images in my Dockerhub repository")
 ![See screenshot of docker images in my DockerHub repository](assets/Week1/Container%20Terminal%20in%20Docker%20Desktop.jpg)
@@ -151,7 +151,7 @@ I connected to the EC2 instance using the key I downloaded from the AWS console,
 
 ![See screenshot of docker images in my DockerHub repository](assets/Week1/Docker%20installation%20on%20EC2.jpg)
 
-Since my image was already in my Dockerhub repository,  I just had to run the following commands:
+Since my image was already in my Dockerhub registry,  I just had to run the following commands:
 
 ```bash
 sudo docker pull kayoxx007/aws-bootcamp-cruddur-2023-backend-flask:latest
