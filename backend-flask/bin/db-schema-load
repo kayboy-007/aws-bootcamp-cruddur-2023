@@ -6,11 +6,10 @@ LABEL="db-schema-load"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 schema_path="$(realpath .)/db/schema.sql"
-
 echo $schema_path
 
 if [ "$1" = "prod" ]; then
-  echo "Using production environment."
+  echo "Running in production mode"
   URL=$PROD_CONNECTION_URL
 else
   URL=$CONNECTION_URL
