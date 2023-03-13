@@ -57,8 +57,8 @@ processor = BatchSpanProcessor(OTLPSpanExporter())
 provider.add_span_processor(processor)
 
 # X-RAY ---------
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+#xray_url = os.getenv("AWS_XRAY_URL")
+#xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 # Show this in the logs within the backend-flask app (STDOUT
 #simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
@@ -70,14 +70,14 @@ tracer = trace.get_tracer(__name__)
 app = Flask(__name__)
 
 cognito_token_verification = CognitoJwtToken(
-user_pool_id=os.getenv("AWS_CONGITO_USER_POOL_ID"), 
-user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"), 
-region=os.getenv("AWS_DEFAULT_REGION")
+  user_pool_id=os.getenv("AWS_CONGITO_USER_POOL_ID"), 
+  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"), 
+  region=os.getenv("AWS_DEFAULT_REGION")
 
 )
 
 # X-RAY -----------
-XRayMiddleware(app, xray_recorder)
+#XRayMiddleware(app, xray_recorder)
 
 # HoneyComb -------------
 # Initialize automatic instrumentation with Flash
@@ -162,7 +162,7 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
-@xray_recorder.capture('activities_home')
+#@xray_recorder.capture('activities_home')
 def data_home():
   access_token = extract_access_token(request.headers)
   try:
@@ -185,6 +185,7 @@ def data_notifications():
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
+#@xray_recorder.capture('activities_users')
 def data_handle(handle):
   model = UserActivities.run(handle)
   if model['errors'] is not None:
