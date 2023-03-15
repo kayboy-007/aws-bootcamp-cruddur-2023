@@ -4,6 +4,7 @@ import re
 import sys
 from flask import current_app as app
 
+
 class Db:
   def __init__(self):
     self.init_pool()
