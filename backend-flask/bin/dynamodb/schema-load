@@ -10,11 +10,11 @@ if len(sys.argv) == 2:
   if "prod" in sys.argsv[1]:
     attrs = {}
 
-dynamodb = boto3.client('dynamodb',**attrs)
+ddb = boto3.client('dynamodb',**attrs)
 
 table_name = 'cruddur-message'
 
-response = dynamodb.create_table(
+response = ddb.create_table(
   TableName=table_name,
   AttributeDefinitions=[
     {
