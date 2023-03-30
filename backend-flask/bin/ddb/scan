@@ -14,3 +14,6 @@ response = table.scan()
 items = response['Items']
 for item in items:
   print(item)
+items = response['Items']
+for item in items:
+  print(item)
