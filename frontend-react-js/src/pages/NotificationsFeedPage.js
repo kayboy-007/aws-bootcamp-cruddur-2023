@@ -7,6 +7,9 @@ import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 import ReplyForm from '../components/ReplyForm';
 
+// [TODO] Authenication
+import Cookies from 'js-cookie'
+
 export default function NotificationsFeedPage() {
   const [activities, setActivities] = React.useState([]);
   const [popped, setPopped] = React.useState(false);
@@ -19,9 +22,6 @@ export default function NotificationsFeedPage() {
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/notifications`
       const res = await fetch(backend_url, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`
-        },
         method: "GET"
       });
       let resJson = await res.json();
@@ -57,7 +57,7 @@ export default function NotificationsFeedPage() {
 
   return (
     <article>
-      <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
+      <DesktopNavigation user={user} active={'notifications'} setPopped={setPopped} />
       <div className='content'>
         <ActivityForm  
           popped={popped}
@@ -72,7 +72,7 @@ export default function NotificationsFeedPage() {
           activities={activities} 
         />
         <ActivityFeed 
-          title="Home" 
+          title="Notifications" 
           setReplyActivity={setReplyActivity} 
           setPopped={setPoppedReply} 
           activities={activities} 
