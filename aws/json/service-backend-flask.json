@@ -4,6 +4,14 @@
     "desiredCount": 1,
     "enableECSManagedTags": true,
     "enableExecuteCommand": true,
+    "loadBalancers": [
+      {
+          "targetGroupArn": "arn:aws:elasticloadbalancing:ca-central-1:197700196837:targetgroup/cruddur-backend-flask-tg/b642dc73e7667de9",
+          "loadBalancerName": "arn:aws:elasticloadbalancing:ca-central-1:197700196837:loadbalancer/app/cruddur-alb/4fca73d6e6201f55",
+          "containerName": "backend-flask",
+          "containerPort": 4567
+      }
+    ],
     "networkConfiguration": {
       "awsvpcConfiguration": {
         "assignPublicIp": "ENABLED",
@@ -17,7 +25,19 @@
         ]
       }
     },
+    "serviceConnectConfiguration":{
+      "enabled": true,
+      "namespace": "cruddur",
+      "services": [
+        {
+          "portName": "backend-flask",
+          "discoveryName": "backend-flask",
+          "clientAliases": [{"port":4567}]
+        }
+      ]
+    },
     "propagateTags": "SERVICE",
     "serviceName": "backend-flask",
     "taskDefinition": "backend-flask"
+    
   }
