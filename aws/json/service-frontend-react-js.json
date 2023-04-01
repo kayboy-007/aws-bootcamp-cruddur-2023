@@ -1,35 +1,41 @@
 {
-    "family": "frontend-react-js",
-    "executionRoleArn": "arn:aws:iam::197700196837:role/CruddurServiceExecutionRole",
-    "taskRoleArn": "arn:aws:iam::197700196837:role/CruddurTaskRole",
-    "networkMode": "awsvpc",
-    "cpu": "256",
-    "memory": "512",
-    "requiresCompatibilities": [ 
-      "FARGATE" 
-    ],
-    "containerDefinitions": [
+  "cluster": "cruddur",
+  "launchType": "FARGATE",
+  "desiredCount": 1,
+  "enableECSManagedTags": true,
+  "enableExecuteCommand": true,
+  "loadBalancers": [
+    {
+        "targetGroupArn": "arn:aws:elasticloadbalancing:ca-central-1:197700196837:targetgroup/cruddur-frontend-react-js-tg/43d96d497e020b8c",
+        "containerName": "frontend-react-js",
+        "containerPort": 3000
+    }
+  ],
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "ENABLED",
+      "securityGroups": [
+        "sg-0d7bf6b374d8a44df"
+      ],
+      "subnets": [
+        "subnet-09813c0611065493c",
+        "subnet-01f9ac6586ed5f1ab",
+        "subnet-09bef2b882917299f"
+      ]
+    }
+  },
+  "propagateTags": "SERVICE",
+  "serviceName": "frontend-react-js",
+  "taskDefinition": "frontend-react-js",
+  "serviceConnectConfiguration": {
+    "enabled": true,
+    "namespace": "cruddur",
+    "services": [
       {
-        "name": "frontend-react-js",
-        "image": "197700196837.dkr.ecr.ca-central-1.amazonaws.com/frontend-react-js",
-        "essential": true,
-        "portMappings": [
-          {
-            "name": "frontend-react-js",
-            "containerPort": 3000,
-            "protocol": "tcp", 
-            "appProtocol": "http"
-          }
-        ],
-  
-        "logConfiguration": {
-          "logDriver": "awslogs",
-          "options": {
-              "awslogs-group": "cruddur",
-              "awslogs-region": "ca-central-1",
-              "awslogs-stream-prefix": "frontend-react-js"
-          }
-        }
+        "portName": "frontend-react-js",
+        "discoveryName": "frontend-react-js",
+        "clientAliases": [{"port": 3000}]
       }
     ]
   }
+}
