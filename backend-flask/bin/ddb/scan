@@ -17,3 +17,6 @@ for item in items:
 items = response['Items']
 for item in items:
   print(item)
+  items = response['Items']
+  for items in items:
+    print(item)
